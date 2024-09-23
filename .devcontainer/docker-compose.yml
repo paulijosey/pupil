@@ -1,0 +1,24 @@
+services:
+  python3:
+    container_name: pupil_dev
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        - USER_UID=${uid_docker}
+        - USER_GID=${gid_docker}
+    image: pupil_dev:latest
+    network_mode: host
+    ipc: host
+    privileged: true
+    volumes:
+      # Mount the root folder that contains .git
+      - ..:/pupil_dev
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /dev:/dev
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    restart: no
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+      - XDG_RUNTIME_DIR=/tmp/.X11-unix

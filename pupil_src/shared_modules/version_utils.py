@@ -55,7 +55,7 @@ def pupil_version_string() -> str:
     # version (without git).
     version = get_tag_commit()
     if version is None:
-        raise ValueError("Version Error")
+        return "docker-dev-env"
 
     try:
         parts_git_tag = version.split("-")

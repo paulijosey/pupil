@@ -1,0 +1,31 @@
+{
+    "name": "Python3",
+    "dockerComposeFile": [
+        "docker-compose.yml"
+    ],
+    "service": "python3",
+    "shutdownAction": "none",
+    // this last part are just vscode extensions that I (personally) like do have.
+    // feel free to extend (but don't remove my extensions or I'll find you).
+    "workspaceFolder": "/pupil_dev",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "liviuschera.noctis",
+                "lunarlimbo.banner-comments-plus",
+                "ms-python.python",
+                "kube.42header",
+                "ms-vscode.cpptools",
+                "twxs.cmake",
+                "ms-vscode.cmake-tools",
+                "cschlosser.doxdocgen",
+                "ms-vscode.cpptools-extension-pack",
+                "mutantdino.resourcemonitor"
+            ],
+            // I prefer to have a different theme for every container :)
+            "settings": {
+                "workbench.colorTheme": "Noctis"
+            }
+        }
+    }
+}
