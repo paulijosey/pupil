@@ -11,9 +11,10 @@ services:
     network_mode: host
     ipc: host
     privileged: true
+    user: root
     volumes:
       # Mount the root folder that contains .git
-      - ..:/pupil_dev
+      - ..:/pupil_dev/pupil
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /dev:/dev
     command: /bin/sh -c "while sleep 1000; do :; done"

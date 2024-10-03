@@ -2,7 +2,7 @@ FROM ros:humble-perception
 ARG USERNAME=samrtglasses
 ARG USER_UID=1000
 ARG USER_GID=1000
-ARG WS=/pupil_dev
+ARG WS=/pupil_dev/pupil
 ARG ROS_WS=/pupil_dev/ros_ws
 
 ENV PIP_BREAK_SYSTEM_PACKAGES 1
@@ -67,14 +67,34 @@ RUN if [ -f "/tmp/python-requirements/requirements.txt" ]; then \
 
 RUN mkdir -p ${WS}
 
-# install fancy tf_bag lib
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh \
     && mkdir -p ${ROS_WS}/src \
     && cd ${ROS_WS}/src \
     && cd ${ROS_WS} \
     && colcon build
 
+# install custom ros messages/packages
+RUN cd ${ROS_WS}/src/ \
+    && git clone https://github.com/paulijosey/pupil_labs_ros2.git
+RUN . /opt/ros/${ROS_DISTRO}/setup.sh \
+    && cd ${ROS_WS} \
+    && colcon build
+
+
 RUN chown -R $USERNAME:$USERNAME ${WS}
+
+# fix wierd ROS docker memory issue
+RUN echo "ulimit -n 524388" >> /home/${USERNAME}/.bashrc
+RUN echo "ulimit -Hn 524388" >> /home/${USERNAME}/.bashrc
+RUN echo "ulimit -n 524388" >> /root/.bashrc
+RUN echo "ulimit -Hn 524388" >> /root/.bashrc
+
+# add ros setup file to bashrc for convinience
+RUN echo source /opt/ros/${ROS_DISTRO}/setup.bash >> /home/${USERNAME}/.bashrc
+RUN echo source /opt/ros/${ROS_DISTRO}/setup.bash >> /root/.bashrc
+# add new ros setup to bashrc if it exists
+RUN echo "[ -f ${ROS_WS}/install/setup.bash ] && source ${ROS_WS}/install/setup.bash" >> /home/${USERNAME}/.bashrc
+RUN echo "[ -f ${ROS_WS}/install/setup.bash ] && source ${ROS_WS}/install/setup.bash" >> /root/.bashrc
 
 USER ${USERNAME}
 CMD ["/bin/bash"]
