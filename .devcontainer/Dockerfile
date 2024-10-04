@@ -81,6 +81,15 @@ RUN . /opt/ros/${ROS_DISTRO}/setup.sh \
     && colcon build
 
 
+# install additional ros packages
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y \
+    ros-${ROS_DISTRO}-cv-bridge \
+    ros-${ROS_DISTRO}-image-transport \
+    ros-${ROS_DISTRO}-rviz2 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN chown -R $USERNAME:$USERNAME ${WS}
 
 # fix wierd ROS docker memory issue
