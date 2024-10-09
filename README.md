@@ -7,6 +7,11 @@ If you feel like some programs are missing add them to the .devcontainer/Dockerf
 its a python dependency to the requirements.txt file. (You need to rebould the container 
 to apply them)
 
+To launch the "Capture" software navigate to /pupil_dev/pupil/pupil_src and execute:
+```
+python3 main.py capture
+```
+
 # Pupil
 <a
 href="https://pupil-labs.com"
