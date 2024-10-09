@@ -1,3 +1,12 @@
+# NEW: Docker Dev Setup 
+This repo ships with a docker development environment. Simply open this project in VSCode
+and you should be prompted with "Open in Container". Click yes ... wait for a bit ... 
+and enjoy a dev environment that ships with all dependencies. 
+
+If you feel like some programs are missing add them to the .devcontainer/Dockerfile or if 
+its a python dependency to the requirements.txt file. (You need to rebould the container 
+to apply them)
+
 # Pupil
 <a
 href="https://pupil-labs.com"
