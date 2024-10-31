@@ -75,7 +75,8 @@ RUN . /opt/ros/${ROS_DISTRO}/setup.sh \
 
 # install custom ros messages/packages
 RUN cd ${ROS_WS}/src/ \
-    && git clone https://github.com/paulijosey/pupil_labs_ros2.git
+    && git clone https://github.com/paulijosey/pupil_labs_ros2.git \
+    && git clone https://github.com/paulijosey/yolo_ros2.git
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh \
     && cd ${ROS_WS} \
     && colcon build
