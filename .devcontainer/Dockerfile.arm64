@@ -93,8 +93,8 @@ RUN python -m pip install git+https://github.com/pupil-labs/pyglui
 # Copy environment.yml (if found) to a temp location so we update the environment. Also
 # copy "noop.txt" so the COPY instruction does not fail if no environment.yml exists.
 COPY ../requirements.arm64.txt .devcontainer/noop.txt /tmp/python-requirements/
-RUN if [ -f "/tmp/python-requirements/requirements.txt" ]; then \
-    pip install --no-cache-dir -r /tmp/python-requirements/requirements.txt ; fi
+RUN if [ -f "/tmp/python-requirements/requirements.arm64.txt" ]; then \
+    pip install --no-cache-dir -r /tmp/python-requirements/requirements.arm64.txt ; fi
 
 RUN mkdir -p ${WS}
 
