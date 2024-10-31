@@ -1,0 +1,31 @@
+# CPyhton backports
+typing_extensions>=4.1.0
+
+# Third-party
+av
+click
+glfw>=2.0.0
+msgpack>=1.0.0
+numexpr
+numpy==1.26.4
+opencv-python
+packaging>=20.0,<22
+psutil
+pyopengl
+pyzmq
+rich
+scikit-learn
+scipy
+sounddevice
+zeromq-pyre>=0.3.4  # Gracefully handle https://github.com/pupil-labs/pupil/issues/2174
+
+# Custom packages
+ultralytics # for YOLO
+pyrealsense2 # for Intel RealSense
+
+# Pupil-Labs
+# ndsi==1.4.*
+pupil-apriltags==1.0.*
+pupil-detectors>=2.0.2rc2
+pupil-labs-uvc
+pye3d>=0.3.2
