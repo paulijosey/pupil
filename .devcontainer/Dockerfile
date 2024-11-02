@@ -43,6 +43,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     libmpg123-dev \
     python3-pip \
     python3-dev \
+    python-is-python3 \
     libxkbcommon-dev \
     libxinerama-dev \
     libxcursor-dev \
