@@ -4,13 +4,19 @@ and you should be prompted with "Open in Container". Click yes ... wait for a bi
 and enjoy a dev environment that ships with all dependencies. 
 
 If you feel like some programs are missing add them to the .devcontainer/Dockerfile or if 
-its a python dependency to the requirements.txt file. (You need to rebould the container 
+its a python dependency to the requirements.txt file. (You need to rebuild the container 
 to apply them)
 
 To launch the "Capture" software navigate to /pupil_dev/pupil/pupil_src and execute:
 ```
-python3 main.py capture
+python main.py capture
 ```
+# NEW: Docker ARM64 Setup
+In order to run pupil capture on an ARM64 device a separate 
+Docker container can be build that handles installations 
+from source of necessary dependencies. The Dockerfile and 
+docker-compose file can be found in the ```.devcontainer``` 
+directory.
 
 # Pupil
 <a

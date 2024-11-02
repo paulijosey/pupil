@@ -1,7 +1,7 @@
 {
-    "name": "Python3",
+    "name": "arm64",
     "dockerComposeFile": [
-        "docker-compose.yml"
+        "../docker-compose.arm64.yml"
     ],
     "service": "python3",
     "shutdownAction": "none",

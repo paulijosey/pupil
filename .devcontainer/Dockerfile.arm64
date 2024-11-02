@@ -47,6 +47,16 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     libxkbcommon-dev \
     libxinerama-dev \
     libxcursor-dev \
+    libavformat-dev \ 
+    libavcodec-dev \ 
+    libavdevice-dev \
+    libavutil-dev \
+    libswscale-dev \
+    libportaudio2 \
+    ffmpeg \
+    x264 \
+    x265 \
+    portaudio19-dev \
     libxi-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -60,11 +70,31 @@ RUN mkdir -p /tmp/glfw \
     && make -j4 \
     && make install 
 
+# Build some python libs from source because they are not available for arm 
+WORKDIR /tmp
+# NDSI
+RUN mkdir -p /tmp/ndsi
+RUN cd /tmp/ndsi \
+    && wget -O libjpeg-turbo.tar.gz https://sourceforge.net/projects/libjpeg-turbo/files/1.5.1/libjpeg-turbo-1.5.1.tar.gz/download \
+    && tar -xvzf libjpeg-turbo.tar.gz \
+    && cd libjpeg-turbo-1.5.1 \
+    && ./configure --enable-static=no --prefix=/usr/local \
+    && make install \
+    && sudo ldconfig
+RUN cd /tmp/ndsi \
+    && git clone https://github.com/pupil-labs/pyndsi.git \
+    && cd pyndsi \ 
+    && python -m pip install -U pip \
+    && python -m pip install -e .
+
+# Pyglui
+RUN python -m pip install git+https://github.com/pupil-labs/pyglui
+
 # Copy environment.yml (if found) to a temp location so we update the environment. Also
 # copy "noop.txt" so the COPY instruction does not fail if no environment.yml exists.
-COPY ../requirements.txt .devcontainer/noop.txt /tmp/python-requirements/
-RUN if [ -f "/tmp/python-requirements/requirements.txt" ]; then \
-    pip install --no-cache-dir -r /tmp/python-requirements/requirements.txt ; fi
+COPY ../requirements.arm64.txt .devcontainer/noop.txt /tmp/python-requirements/
+RUN if [ -f "/tmp/python-requirements/requirements.arm64.txt" ]; then \
+    pip install --no-cache-dir -r /tmp/python-requirements/requirements.arm64.txt ; fi
 
 RUN mkdir -p ${WS}
 
