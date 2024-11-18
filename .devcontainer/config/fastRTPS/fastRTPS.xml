@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dds>
+    <profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
+        <transport_descriptors>
+            <!-- Create a descriptor for the new transport -->
+            <transport_descriptor>
+                <transport_id>shm_transport</transport_id>
+                <type>SHM</type>
+            </transport_descriptor>
+            <!-- Create a descriptor for the new transport -->
+            <transport_descriptor>
+                <transport_id>udp_transport</transport_id>
+                <type>UDPv4</type>
+                <sendBufferSize>1048576</sendBufferSize>
+                <receiveBufferSize>4194304</receiveBufferSize>
+                <interfaceWhiteList>
+                    <!-- Laptop -->
+                    <address>10.144.58.4</address>
+                    <!-- NUC -->
+                    <address>10.144.58.110</address>
+                </interfaceWhiteList>
+            </transport_descriptor>
+        </transport_descriptors>
+
+        <participant profile_name="super_client_profile" is_default_profile="true">
+            <rtps>
+                <!-- Link the Transport Layer to the Participant -->
+                <userTransports>
+                    <transport_id>shm_transport</transport_id>
+                    <transport_id>udp_transport</transport_id>
+                </userTransports>
+                <useBuiltinTransports>false</useBuiltinTransports>
+            </rtps>
+        </participant>
+    </profiles>
+</dds>

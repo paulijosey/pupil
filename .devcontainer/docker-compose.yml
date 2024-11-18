@@ -17,9 +17,13 @@ services:
       - ..:/pupil_dev/pupil
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /dev:/dev
+      # ROS2 network trafic
+      - ./config/fastRTPS/fastRTPS.xml:/fastRTPS.xml:ro
     command: /bin/sh -c "while sleep 1000; do :; done"
     restart: no
     environment:
       - DISPLAY=$DISPLAY
       - QT_X11_NO_MITSHM=1
       - XDG_RUNTIME_DIR=/tmp/.X11-unix
+      - FASTRTPS_DEFAULT_PROFILES_FILE=/fastRTPS.xml
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
